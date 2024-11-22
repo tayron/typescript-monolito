@@ -4,6 +4,6 @@ import { createProduct, getStockById } from '../handler/products.handler';
 const router = Router();
 
 router.post('/products', createProduct);
-router.get('/products/:id/getStockById', getStockById);
+router.get('/products/:id/stock', getStockById);
 
 export default router;
