@@ -5,10 +5,19 @@ import { Sequelize } from "sequelize"
 export const migrator = (
   sequelize: Sequelize
 ) => {
+
+    let migrationsPath = [
+      "*/src/migrations/products",
+      "*/src/migrations/clients",
+      "*/src/migrations/invoices",
+      "*/src/migrations/invoices-items",
+      "*/src/migrations/transactions"
+    ].join("/*.ts,") + "/*.ts";
+
   return new Umzug({
     migrations: {
       glob: [
-        `{*/src/migrations/products/*.ts,*/src/migrations/clients/*.ts,*/src/migrations/invoices/*.ts,*/src/migrations/invoices-items/*.ts,*/src/migrations/transactions/*.ts}`,        
+        `{${migrationsPath}}`,
         {
           cwd: join(__dirname, "../../../"),
           ignore: ["**/*.d.ts", "**/index.ts", "**/index.js"],
