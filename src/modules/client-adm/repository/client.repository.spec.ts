@@ -29,8 +29,9 @@ describe("Client Repository test", () => {
       return 
     }    
     migration = migrator(sequelize)
-    await migration.down()
-    await sequelize.close()
+    await migration.down()    
+    await sequelize.drop()
+    await sequelize.close()    
   })
 
   it("should create a client", async () => {
@@ -48,14 +49,13 @@ describe("Client Repository test", () => {
         "SC",
         "88888-888"
       )
-      // address: "Rua 123",
     })
 
     const repository = new ClientRepository()
     await repository.add(client)
 
-    const clientDb = await ClientModel.findOne({ where: { id: "1" } })
-
+    const clientDb = (await ClientModel.findOne({ where: { id: "1" } })).dataValues    
+    
     expect(clientDb).toBeDefined()
     expect(clientDb.id).toEqual(client.id.id)
     expect(clientDb.name).toEqual(client.name)
@@ -73,7 +73,7 @@ describe("Client Repository test", () => {
 
   it("should find a client", async () => {
 
-    const client = await ClientModel.create({
+    const client = (await ClientModel.create({
       id: '1',
       name: 'Lucian',
       email: 'lucian@123.com',
@@ -86,7 +86,7 @@ describe("Client Repository test", () => {
       zipcode: "88888-888",      
       createdAt: new Date(),
       updatedAt: new Date()
-    })
+    })).dataValues
 
     const repository = new ClientRepository()
     const result = await repository.find(client.id)
