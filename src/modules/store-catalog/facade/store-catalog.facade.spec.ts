@@ -1,24 +1,32 @@
 import { Sequelize } from "sequelize-typescript";
 import StoreCatalogFacadeFactory from "../factory/facade.factory";
 import ProductModel from "../repository/product.model";
+import { migrator } from "../../../migrations/migrator";
+import { Umzug } from "umzug";
 
 describe("StoreCatalogFacade test", () => {
   let sequelize: Sequelize;
+  let migration: Umzug<any>;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
       logging: false,
-      sync: { force: true },
     });
 
     await sequelize.addModels([ProductModel]);
-    await sequelize.sync();
+    migration = migrator(sequelize)
+    await migration.up()
   });
 
   afterEach(async () => {
-    await sequelize.close();
+    if (!migration || !sequelize) {
+      return 
+    }    
+    migration = migrator(sequelize)
+    await migration.down()
+    await sequelize.close()
   });
 
   it("should find a product", async () => {

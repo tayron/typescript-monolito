@@ -5,25 +5,33 @@ import AddClientUseCase from "../usecase/add-client/add-client.usecase"
 import ClientAdmFacade from "./client-adm.facade"
 import ClientAdmFacadeFactory from "../factory/client-adm.facade.factory"
 import Address from "../../@shared/domain/value-object/address"
+import { Umzug } from "umzug"
+import { migrator } from "../../../migrations/migrator"
 
 
 describe("Client Adm Facade test", () => {
 
   let sequelize: Sequelize
+  let migration: Umzug<any>;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: 'sqlite',
       storage: ':memory:',
       logging: false,
-      sync: { force: true }
     })
 
     sequelize.addModels([ClientModel])
-    await sequelize.sync()
+    migration = migrator(sequelize)
+    await migration.up()
   })
 
   afterEach(async () => {
+    if (!migration || !sequelize) {
+      return 
+    }    
+    migration = migrator(sequelize)
+    await migration.down()
     await sequelize.close()
   })
 

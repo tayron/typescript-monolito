@@ -5,24 +5,32 @@ import InvoiceRepository from "../repository/invoice.repository";
 import FindInvoiceFacade from "./find.invoice.facade";
 import InvoinceFindUseCase from "../usecase/find-invoice/find-invoice.usecase";
 import FindInvoiceFactory from "../factory/FindInvoiceFactory";
+import { migrator } from "../../../migrations/migrator";
+import { Umzug } from "umzug";
 
 describe("FindFacede test", () => {
   let sequelize: Sequelize;
+  let migration: Umzug<any>;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
       logging: false,
-      sync: { force: true },
     });
 
     await sequelize.addModels([ItemModel, InvoiceModel]);
-    await sequelize.sync();
+    migration = migrator(sequelize)
+    await migration.up()
   });
 
   afterEach(async () => {
-    await sequelize.close();
+    if (!migration || !sequelize) {
+      return 
+    }    
+    migration = migrator(sequelize)
+    await migration.down()
+    await sequelize.close()
   });
 
   it("should create a invoice", async() => {    

@@ -6,24 +6,32 @@ import Id from "../../@shared/domain/value-object/id.value-object";
 import Address from "../../@shared/domain/value-object/address";
 import InvoiceRepository from "./invoice.repository";
 import InvoiceItem from "../domain/invoiceItem";
+import { Umzug } from "umzug";
+import { migrator } from "../../../migrations/migrator";
 
 describe("TransactionRepository test", () => {
   let sequelize: Sequelize;
+  let migration: Umzug<any>;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
       logging: false,
-      sync: { force: true },
     });
 
     await sequelize.addModels([ItemModel, InvoiceModel]);
-    await sequelize.sync();
+    migration = migrator(sequelize)
+    await migration.up()
   });
 
   afterEach(async () => {
-    await sequelize.close();
+    if (!migration || !sequelize) {
+      return 
+    }    
+    migration = migrator(sequelize)
+    await migration.down()
+    await sequelize.close()
   });
 
   it("should save a invoice", async () => {

@@ -5,24 +5,32 @@ import GenerateInvoiceFacade from "./generate.invoice.facade";
 import InvoinceGenerateUseCase from "../usecase/generate-invoice/generate-invoice.usecase";
 import InvoiceRepository from "../repository/invoice.repository";
 import GenerateInvoiceFactory from "../factory/GenerateInvoiceFactory";
+import { Umzug } from "umzug";
+import { migrator } from "../../../migrations/migrator";
 
 describe("GenerateFacede test", () => {
   let sequelize: Sequelize;
+  let migration: Umzug<any>;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
       logging: false,
-      sync: { force: true },
     });
 
     await sequelize.addModels([ItemModel, InvoiceModel]);
-    await sequelize.sync();
+    migration = migrator(sequelize)
+    await migration.up()
   });
 
   afterEach(async () => {
-    await sequelize.close();
+    if (!migration || !sequelize) {
+      return 
+    }    
+    migration = migrator(sequelize)
+    await migration.down()
+    await sequelize.close()
   });
 
   it("should create a invoice", async() => {    

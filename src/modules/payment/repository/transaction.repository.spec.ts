@@ -3,24 +3,32 @@ import Id from "../../@shared/domain/value-object/id.value-object";
 import Transaction from "../domain/transaction";
 import TransactionModel from "./transaction.model";
 import TransactionRepostiory from "./transaction.repository";
+import { Umzug } from "umzug";
+import { migrator } from "../../../migrations/migrator";
 
 describe("TransactionRepository test", () => {
   let sequelize: Sequelize;
+  let migration: Umzug<any>;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
       logging: false,
-      sync: { force: true },
     });
 
     await sequelize.addModels([TransactionModel]);
-    await sequelize.sync();
+    migration = migrator(sequelize)
+    await migration.up()
   });
 
   afterEach(async () => {
-    await sequelize.close();
+    if (!migration || !sequelize) {
+      return 
+    }    
+    migration = migrator(sequelize)
+    await migration.down()
+    await sequelize.close()
   });
 
   it("should save a transaction", async () => {

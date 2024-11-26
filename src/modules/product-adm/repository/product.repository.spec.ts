@@ -3,24 +3,32 @@ import Id from "../../@shared/domain/value-object/id.value-object";
 import Product from "../domain/product.entity";
 import { ProductModel } from "./product.model";
 import ProductRepository from "./product.repository";
+import { migrator } from "../../../migrations/migrator";
+import { Umzug } from "umzug";
 
 describe("ProductRepository test", () => {
   let sequelize: Sequelize;
+  let migration: Umzug<any>;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
       logging: false,
-      sync: { force: true },
     });
 
     await sequelize.addModels([ProductModel]);
-    await sequelize.sync();
+    migration = migrator(sequelize)
+    await migration.up()
   });
 
   afterEach(async () => {
-    await sequelize.close();
+    if (!migration || !sequelize) {
+      return 
+    }    
+    migration = migrator(sequelize)
+    await migration.down()
+    await sequelize.close()
   });
 
   it("should create a product", async () => {
