@@ -35,10 +35,10 @@ export default class InvoiceRepository implements InvoiceGateway {
   }
 
   async find(id: string): Promise<Invoice> {
-    const invoice = await InvoiceModel.findOne({
+    const invoice = (await InvoiceModel.findOne({
       where: { id },
       include: [InvoiceItemModel]
-    });
+    })).dataValues;
 
     if (!invoice) {
       throw new Error(`Invoice with id ${id} not found`);
@@ -52,7 +52,7 @@ export default class InvoiceRepository implements InvoiceGateway {
       invoice.zipcode,
     );        
 
-    const items = invoice.items.map((item) => {
+    const items = invoice.items.map((item: any) => {
       return new InvoiceItem({
         id: new Id(item.id),
         name: item.name,

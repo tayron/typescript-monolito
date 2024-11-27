@@ -26,6 +26,7 @@ describe("StoreCatalogFacade test", () => {
     }    
     migration = migrator(sequelize)
     await migration.down()
+    await sequelize.drop()
     await sequelize.close()
   });
 

@@ -61,7 +61,7 @@ describe("Client Adm Facade test", () => {
 
     await facade.add(input)
 
-    const client = await ClientModel.findOne({ where: { id: "1" } })
+    const client = (await ClientModel.findOne({ where: { id: "1" } })).dataValues
 
     expect(client).toBeDefined()
     expect(client.id).toBe(input.id)
