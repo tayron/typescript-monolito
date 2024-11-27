@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 
 import { migrator } from '../../migrations/migrator';
 import { ProductModel } from '../../modules/product-adm/repository/product.model';
+import ProductAdmFacadeFactory from '../../modules/product-adm/factory/facade.factory';
 
 
 describe("POST /products", () => {
@@ -52,4 +53,30 @@ describe("POST /products", () => {
 
     expect(output.status).toBe(201)
   })
+
+  it("should check stock", async () => {
+    const outputCreateProducts = await request(app)
+      .post("/api/v1/products")
+      .send({
+        "name": "Example Product",
+        "description": "This is a description of the example product.",
+        "price": 29.99,
+        "stock": 100
+    })
+
+    expect(outputCreateProducts.status).toBe(201)
+
+    const factory = ProductAdmFacadeFactory.create()
+    const products = await factory.findAllProducts()
+
+    expect(products.length).toBe(1)
+
+    const outputGetStock = await request(app)
+      .get(`/api/v1/products/${products[0].id}/stock`)
+      .send()
+
+    expect(outputGetStock.status).toBe(200)
+    expect(outputGetStock.body.stock).toBe(100)
+
+  })  
 })
