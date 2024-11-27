@@ -25,9 +25,7 @@ export default class ClientRepository implements ClientGateway {
   }
 
   async find(id: string): Promise<Client> {
-
     const client = (await ClientModel.findOne({ where: { id } })).dataValues
-
     if (!client) {
       throw new Error("Client not found")
     }
@@ -48,5 +46,25 @@ export default class ClientRepository implements ClientGateway {
       createdAt: client.createdAt,
       updatedAt: client.createdAt
     })
+  }
+
+  async findAll(): Promise<Client[]> {
+    const clients = (await ClientModel.findAll()).map((client) => client.dataValues)
+    return clients.map((client) => new Client({
+      id: new Id(client.id),
+      name: client.name,
+      email: client.email,
+      document: client.document,
+      address: new Address(
+        client.street,
+        client.number,
+        client.complement,
+        client.city,
+        client.state,
+        client.zipcode,
+      ),
+      createdAt: client.createdAt,
+      updatedAt: client.createdAt
+    }))
   }
 }

@@ -1,9 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import productRoutes from './router/products.router';
 import { migrator } from '../migrations/migrator';
 import sequelize from '../infra/database';
 import { Umzug } from 'umzug';
+import router from './router';
 
 const PORT = 3000;
 
@@ -19,7 +19,7 @@ const startServer = async () => {
     app.use(bodyParser.json());
 
     // Rotas
-    app.use('/api/v1', productRoutes);
+    app.use('/api/v1', router);
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}/api`);
     });

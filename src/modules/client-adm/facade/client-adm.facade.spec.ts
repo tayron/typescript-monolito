@@ -42,6 +42,7 @@ describe("Client Adm Facade test", () => {
     const facade = new ClientAdmFacade({
       addUsecase: addUsecase,
       findUsecase: undefined,
+      findAllUsecase: undefined
     })
 
     const input = {
@@ -72,15 +73,6 @@ describe("Client Adm Facade test", () => {
   })
 
   it("should find a client", async () => {
-
-    // const repository = new ClientRepository()
-    // const addUsecase = new AddClientUseCase(repository)
-    // const findUseCase = new FindClientUseCase(repository)
-    // const facade = new ClientAdmFacade({
-    //   addUseCase: addUsecase,
-    //   findUseCase: findUseCase
-    // })
-
     const facade = ClientAdmFacadeFactory.create()
 
     const input = {
@@ -114,4 +106,51 @@ describe("Client Adm Facade test", () => {
     expect(client.address.state).toBe(input.address.state)
     expect(client.address.zipCode).toBe(input.address.zipCode)
   })
+
+it("should find all clients", async () => {
+    const facade = ClientAdmFacadeFactory.create()
+
+    const client1 = {
+      id: "1",
+      name: "Lucian",
+      email: "lucian@xpto.com",
+      document: "1234-5678",
+      address: new Address(
+        "Rua 123",
+        "99",
+        "Casa Verde",
+        "Criciúma",
+        "SC",
+        "88888-888"
+      )
+    }
+
+    const client2 = {
+      id: "2",
+      name: "Maria",
+      email: "maria@xpto.com",
+      document: "1234-5678",
+      address: new Address(
+        "Rua 123",
+        "99",
+        "Casa Verde",
+        "Criciúma",
+        "SC",
+        "88888-888"
+      )
+    }    
+
+    await facade.add(client1)
+    await facade.add(client2)
+
+    const clients = await facade.findAll()
+
+    expect(clients).toBeDefined()
+    expect(clients[0].id).toBe(client1.id)
+    expect(clients[0].name).toBe(client1.name)
+    expect(clients[0].email).toBe(client1.email)
+    expect(clients[1].id).toBe(client2.id)
+    expect(clients[1].name).toBe(client2.name)
+    expect(clients[1].email).toBe(client2.email)
+  })  
 })

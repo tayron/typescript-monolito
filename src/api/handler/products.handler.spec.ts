@@ -1,5 +1,4 @@
-import { createProduct, getStockById } from './products.handler';
-import productRoutes from '../router/products.router';
+import productRoutes from '../router';
 import request from "supertest"
 import express, { Express } from 'express'
 import { Sequelize } from 'sequelize-typescript';

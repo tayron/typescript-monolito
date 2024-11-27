@@ -72,7 +72,6 @@ describe("Client Repository test", () => {
   })
 
   it("should find a client", async () => {
-
     const client = (await ClientModel.create({
       id: '1',
       name: 'Lucian',
@@ -102,5 +101,46 @@ describe("Client Repository test", () => {
     expect(result.address.zipCode).toEqual(client.zipcode)
     expect(result.createdAt).toStrictEqual(client.createdAt)
     expect(result.updatedAt).toStrictEqual(client.updatedAt)
+  })
+
+  it("should find all clients", async () => {
+    const client1 = (await ClientModel.create({
+      id: '1',
+      name: 'Lucian',
+      email: 'lucian@123.com',
+      document: "1234-5678",
+      street: "Rua 123",
+      number: "99",
+      complement: "Casa Verde",
+      city: "Criciúma",
+      state: "SC",
+      zipcode: "88888-888",      
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })).dataValues
+    
+    const client2 = (await ClientModel.create({
+      id: '2',
+      name: 'Maria',
+      email: 'maria@123.com',
+      document: "1234-5678",
+      street: "Rua 123",
+      number: "99",
+      complement: "Casa Verde",
+      city: "Criciúma",
+      state: "SC",
+      zipcode: "88888-888",      
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })).dataValues  
+    
+    const repository = new ClientRepository()
+    const result = await repository.findAll()    
+
+    expect(result.length).toEqual(2)
+    expect(result[0].id.id).toEqual(client1.id)
+    expect(result[0].name).toEqual(client1.name)
+    expect(result[1].id.id).toEqual(client2.id)
+    expect(result[1].name).toEqual(client2.name)    
   })
 })
