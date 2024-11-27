@@ -7,20 +7,20 @@ import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
 export default class TransactionModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
-  id: string;
+  declare id: string;
 
   @Column({ allowNull: false })
-  orderId: string;
+  declare orderId: string;
 
   @Column({ allowNull: false })
-  amount: number;
+  declare amount: number;
 
   @Column({ allowNull: false })
-  status: string;
+  declare status: string;
 
   @Column({ allowNull: false })
-  createdAt: Date;
+  declare createdAt: Date;
 
   @Column({ allowNull: false })
-  updatedAt: Date;
+  declare updatedAt: Date;
 }

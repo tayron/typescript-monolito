@@ -8,20 +8,20 @@ import InvoiceModel from "./invoice.model";
 export default class InvoiceItemModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
-  id: string
+  declare id: string
 
   @Column({ allowNull: false })
-  name: string
+  declare name: string
 
   @Column({ allowNull: false })
-  price: number
+  declare price: number
   
   @ForeignKey(() => InvoiceModel)  
-  invoiceId: string;
+  declare invoiceId: string;
 
   @Column({ allowNull: false })
-  createdAt: Date
+  declare createdAt: Date
 
   @Column({ allowNull: false })
-  updatedAt: Date
+  declare updatedAt: Date
 }

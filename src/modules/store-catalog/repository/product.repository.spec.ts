@@ -29,7 +29,7 @@ describe("ProductRepository test", () => {
     await sequelize.close()
   });
 
-  it.skip("should find all products", async () => {
+  it("should find all products", async () => {
     await ProductModel.create({
       id: "1",
       name: "Product 1",
@@ -58,7 +58,7 @@ describe("ProductRepository test", () => {
     expect(products[1].salesPrice).toBe(200);
   });
 
-  it.skip("should find a product", async () => {
+  it("should find a product", async () => {
     await ProductModel.create({
       id: "1",
       name: "Product 1",
