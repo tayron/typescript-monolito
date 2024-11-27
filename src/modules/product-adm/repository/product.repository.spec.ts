@@ -75,4 +75,42 @@ describe("ProductRepository test", () => {
     expect(product.purchasePrice).toEqual(100);
     expect(product.stock).toEqual(10);
   });
+
+  it("should find all products", async () => {
+    const productRepository = new ProductRepository();
+
+    ProductModel.create({
+      id: "1",
+      name: "Product 1",
+      description: "Product 1 description",
+      purchasePrice: 100,
+      stock: 10,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    ProductModel.create({
+      id: "2",
+      name: "Product 2",
+      description: "Product 2 description",
+      purchasePrice: 200,
+      stock: 20,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const products = await productRepository.findAll();
+
+    expect(products.length).toEqual(2);
+    expect(products[0].id.id).toEqual("1");
+    expect(products[0].name).toEqual("Product 1");
+    expect(products[0].description).toEqual("Product 1 description");
+    expect(products[0].purchasePrice).toEqual(100);
+    expect(products[0].stock).toEqual(10);
+    expect(products[1].id.id).toEqual("2");
+    expect(products[1].name).toEqual("Product 2");
+    expect(products[1].description).toEqual("Product 2 description");
+    expect(products[1].purchasePrice).toEqual(200);
+    expect(products[1].stock).toEqual(20);
+  })
 });
