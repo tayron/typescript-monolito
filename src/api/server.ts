@@ -19,7 +19,7 @@ const startServer = async () => {
     app.use(bodyParser.json());
 
     // Rotas
-    app.use('/api/v1', productRoutes);    
+    app.use('/api/v1', productRoutes);
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}/api`);
     });

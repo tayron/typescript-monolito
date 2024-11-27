@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import ProductAdmFacade from '../../modules/product-adm/facade/product-adm.facade';
 import ProductAdmFacadeFactory from '../../modules/product-adm/factory/facade.factory';
 
 // POST - /products

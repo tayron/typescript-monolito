@@ -5,7 +5,7 @@
 
 
 ## Produtos
-- **POST products** - Permite o cadastro de produtos
+- **POST /products** - Permite o cadastro de produtos
 
 Exemplo de chamada:
 ```sh 
@@ -19,9 +19,13 @@ curl -X POST http://localhost:3000/api/v1/products \
 }'
 ```
 
-- **GET products/{id}/stock** - Retorna informação de stock de um produto, onde ```{id}``` é o id do produto no banco de dados
+- **GET /products/{id}/stock** - Retorna informação de stock de um produto, onde ```{id}``` é o id do produto no banco de dados
 
 Exemplo de chamada:
 ```sh 
 curl http://localhost:3000/api/v1/products/f8fc2f72-c12f-466b-981d-d5856b3f7409/stock
 ```
+
+- **POST /clients**
+- **POST /checkout/**
+- **GET /invoice/{id}**
