@@ -1,14 +1,14 @@
 import Id from "../../../@shared/domain/value-object/id.value-object";
 import Product from "../../domain/product.entity";
 import { PlaceOrderInputDto } from "./place-order.dto.";
-import PlaceOrderUserCase from "./place-order.usecase";
+import PlaceOrderUseCase from "./place-order.usecase";
 
 const mockDate = new Date(2000, 1, 1);  
 describe("PlaceOrderUseCase unit test", () => {
 
   describe("validateProducts method", () => {
     //@ts-expect-error - no params in constructor
-    const placeOrderUseCase = new PlaceOrderUserCase()
+    const placeOrderUseCase = new PlaceOrderUseCase()
     it("should throw an error when products are not valid", async () => {
       const input: PlaceOrderInputDto = {
         clientId: "0",
@@ -84,7 +84,7 @@ describe("PlaceOrderUseCase unit test", () => {
       };
       
       //@ts-expect-error - no params in constructor
-      const placeOrdrUseCase = new PlaceOrderUserCase();
+      const placeOrdrUseCase = new PlaceOrderUseCase();
 
       //@ts-expect-error - force set clientFacade
       placeOrdrUseCase["_clientFacade"] = mockClientFacade;
@@ -105,7 +105,7 @@ describe("PlaceOrderUseCase unit test", () => {
       };
 
       //@ts-expect-error - no params in constructor
-      const placeOrdrUseCase = new PlaceOrderUserCase();
+      const placeOrdrUseCase = new PlaceOrderUseCase();
 
       const mockValidateProducts = jest        
         .spyOn(placeOrdrUseCase, "validateProducts")        
@@ -161,7 +161,7 @@ describe("PlaceOrderUseCase unit test", () => {
         process: jest.fn().mockResolvedValue({id: "1"})
       }
 
-      const placeOrderUseCase = new PlaceOrderUserCase(
+      const placeOrderUseCase = new PlaceOrderUseCase(
         mockClientFacade,
         null,
         null,
@@ -311,7 +311,7 @@ describe("PlaceOrderUseCase unit test", () => {
     });
 
     //@ts-expect-error - no params in constructor
-    const placeOrderUseCase = new PlaceOrderUserCase();
+    const placeOrderUseCase = new PlaceOrderUseCase();
 
     it("should throw an error wheen product not found", async () => {
 

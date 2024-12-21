@@ -45,6 +45,28 @@ curl -X POST http://localhost:3000/api/v1/clients \
 }'
 ```
 
+## Clientes
+- **POST /clients** - Permite o cadastro de clients
 
-- **POST /checkout/**
-- **GET /invoice/{id}**
+Exemplo de chamada:
+```sh 
+curl -X POST http://localhost:3000/api/v1/clients \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "Lucian",
+    "email": "lucian@xpto.com",
+    "document": "1234-5678",      
+    "street": "Rua 123",
+    "number": "99",
+    "complement": "Casa Verde",
+    "city": "Criciúma",
+    "state": "SC",
+    "zipCode": "88888-888"
+}'
+```
+
+## Pedidos
+- **POST /checkout/** - Permite a realização do pedido de compra
+
+## Faturas
+- **GET /invoice/{id}** - Permite a fatura da compra

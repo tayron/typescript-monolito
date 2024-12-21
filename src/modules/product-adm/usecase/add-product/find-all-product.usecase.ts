@@ -1,7 +1,6 @@
 import Id from "../../../@shared/domain/value-object/id.value-object";
 import Product from "../../domain/product.entity";
 import ProductGateway from "../../gateway/product.gateway";
-import { AddProductInputDto, AddProductOutputDto } from "./add-product.dto";
 import { FindAllProductOutputDto } from "./find-all-product.dto";
 
 export default class FindAllProductUseCase {

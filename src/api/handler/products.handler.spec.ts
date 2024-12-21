@@ -6,7 +6,7 @@ import { Umzug } from 'umzug';
 import bodyParser from 'body-parser';
 
 import { migrator } from '../../migrations/migrator';
-import { ProductModel } from '../../modules/product-adm/repository/product.model';
+import ProductModel from '../../modules/product-adm/repository/product.model';
 import ProductAdmFacadeFactory from '../../modules/product-adm/factory/facade.factory';
 
 

@@ -57,10 +57,6 @@ describe("GenerateFacede test", () => {
       ]
     }
 
-    // const repository = new InvoiceRepository()
-    // const usecase = new InvoinceGenerateUseCase(repository);
-    // const facade = new GenerateInvoiceFacade(usecase);
-
     const facade = GenerateInvoiceFactory.create();
     const output = await facade.process(input);
 

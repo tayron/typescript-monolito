@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import { migrator } from '../../migrations/migrator';
 import ClientAdmFacadeFactory from '../../modules/client-adm/factory/client-adm.facade.factory';
 import router from '../router';
-import { ClientModel } from "../../modules/client-adm/repository/client.model";
+import ClientModel from "../../modules/client-adm/repository/client.model";
 
 
 describe("POST /clients", () => {

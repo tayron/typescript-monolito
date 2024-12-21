@@ -5,7 +5,8 @@ const MockRepository = () => {
   return {
 
     add: jest.fn(),
-    find: jest.fn()
+    find: jest.fn(),
+    findAll: jest.fn(),
   }
 }
 

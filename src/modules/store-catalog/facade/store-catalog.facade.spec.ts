@@ -37,6 +37,10 @@ describe("StoreCatalogFacade test", () => {
       name: "Product 1",
       description: "Description 1",
       salesPrice: 100,
+      purchasePrice: 115,
+      stock: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const result = await facade.find({ id: "1" });
@@ -54,12 +58,20 @@ describe("StoreCatalogFacade test", () => {
       name: "Product 1",
       description: "Description 1",
       salesPrice: 100,
+      purchasePrice: 115,
+      stock: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),      
     });
     await ProductModel.create({
       id: "2",
       name: "Product 2",
       description: "Description 2",
       salesPrice: 200,
+      purchasePrice: 215,
+      stock: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),      
     });
 
     const result = await facade.findAll();

@@ -31,6 +31,7 @@ describe("Migrator test", () => {
 
     expect(tables).toContain("products");
     expect(tables).toContain("clients");
+    expect(tables).toContain("orders");
     expect(tables).toContain("invoices");
     expect(tables).toContain("invoices_items");
     expect(tables).toContain("transactions");

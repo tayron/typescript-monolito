@@ -8,16 +8,16 @@ import StoreCatalogFacadeInterface from "../../../store-catalog/facade/store-cat
 import Client from "../../domain/client.entity";
 import Order from "../../domain/order.entity";
 import Product from "../../domain/product.entity";
-import CheckoutGateway from "../../gateway/chackout.gateway";
 import { PlaceOrderInputDto, PlaceOrderOutputDto } from "./place-order.dto.";
 import GenerateInvoiceFacadeInterface from "../../../invoice/facade/generate.invoice.facade.interface";
+import PlaceOrderGateway from "../../gateway/place.order.gateway";
 
-export default class PlaceOrderUserCase implements UseCaseInterface {
+export default class PlaceOrderUseCase implements UseCaseInterface {
 
   private _clientFacade: ClientAdmFacadeInterface;
   private _productFacade: ProductAdmFacadeInterface;
   private _catalogFacade: StoreCatalogFacadeInterface;
-  private _checkoutRepository: CheckoutGateway;
+  private _placeOrderRepository: PlaceOrderGateway;
   private _invoiceFacade: GenerateInvoiceFacadeInterface;
   private _paymentFacade: PaymentFacadeInterface;
 
@@ -25,14 +25,14 @@ export default class PlaceOrderUserCase implements UseCaseInterface {
     clientFacade: ClientAdmFacadeInterface, 
     productFacade: ProductAdmFacadeInterface,
     storeCatalog: StoreCatalogFacadeInterface,
-    checkoutRepository: CheckoutGateway,
+    placeOrderRepository: PlaceOrderGateway,
     invoiceFacade: GenerateInvoiceFacadeInterface,
     paymentFacade: PaymentFacadeInterface
   ) {
     this._clientFacade = clientFacade;
     this._productFacade = productFacade;
     this._catalogFacade = storeCatalog;
-    this._checkoutRepository = checkoutRepository;
+    this._placeOrderRepository = placeOrderRepository;
     this._invoiceFacade = invoiceFacade;
     this._paymentFacade = paymentFacade;
   }
@@ -88,7 +88,7 @@ export default class PlaceOrderUserCase implements UseCaseInterface {
       }) : null
 
     payment.status == "approved" && order.aproved();
-    this._checkoutRepository.addOrder(order);
+    this._placeOrderRepository.addOrder(order);
 
     return {
       id: order.id.id,
@@ -118,19 +118,22 @@ export default class PlaceOrderUserCase implements UseCaseInterface {
   }
 
   private async getProduct(productId: string): Promise<Product> {
-    const product = await this._catalogFacade.find({id: productId})
+    try {      
+      const product = await this._catalogFacade.find({id: productId})
+      if (!product) {
+        throw new Error("Product not found")
+      }  
+      
+      const productProps = {
+        id: new Id(product.id),
+        name: product.name,
+        description: product.description,
+        salesPrice: product.salesPrice
+      }
 
-    if (!product) {
-      throw new Error("Product not found")
+      return new Product(productProps)      
+    } catch (error) {
+      throw error
     }
-
-    const productProps = {
-      id: new Id(product.id),
-      name: product.name,
-      description: product.description,
-      salesPrice: product.salesPrice
-    }
-
-    return new Product(productProps)
   }
 }

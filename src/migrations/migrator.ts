@@ -9,8 +9,9 @@ export const migrator = (
     let migrationsPath = [
       "*/src/migrations/products",
       "*/src/migrations/clients",
+      "*/src/migrations/orders",
       "*/src/migrations/invoices",
-      "*/src/migrations/invoices-items",
+      "*/src/migrations/invoices-items",      
       "*/src/migrations/transactions"
     ].join("/*.ts,") + "/*.ts";
 
