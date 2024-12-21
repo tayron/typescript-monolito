@@ -53,6 +53,26 @@ describe("POST /products", () => {
     expect(output.status).toBe(201)
   })
 
+  it("should get all products", async () => {
+    const outputCreate = await request(app)
+      .post("/api/v1/products")
+      .send({
+        "name": "Example Product",
+        "description": "This is a description of the example product.",
+        "price": 29.99,
+        "stock": 100
+    })
+
+    expect(outputCreate.status).toBe(201)
+
+    const outputGet = await request(app)
+      .get("/api/v1/products")
+      .send()
+
+    expect(outputGet.status).toBe(200)
+    expect(outputGet.body.length).toBe(1)
+  })  
+
   it("should check stock", async () => {
     const outputCreateProducts = await request(app)
       .post("/api/v1/products")

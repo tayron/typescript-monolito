@@ -23,6 +23,25 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
   }
 };
 
+// GET - /products
+export const getProducts = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const productAdmFacade = ProductAdmFacadeFactory.create();
+    const products = await productAdmFacade.findAllProducts();
+
+    if (!products) {
+      res.status(404).json({ error: 'Product not found.' });
+      return;
+    }
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ error: 'Failed to fetch product' });
+  }
+};
+
+
 // GET - /products/:id/stock
 export const getStockById = async (req: Request, res: Response): Promise<void> => {
   try {
