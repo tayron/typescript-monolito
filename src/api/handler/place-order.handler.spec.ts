@@ -9,6 +9,9 @@ import router from '../router';
 import ClientModel from "../../modules/client-adm/repository/client.model";
 import Address from "../../modules/@shared/domain/value-object/address";
 import ProductAdmFacadeFactory from "../../modules/product-adm/factory/facade.factory";
+import ProductModel from "../../modules/product-adm/repository/product.model";
+import OrderModel from "../../modules/checkout/repository/order.model";
+import OrderItemModel from "../../modules/checkout/repository/order.item.model";
 
 
 describe("POST /checkout", () => {
@@ -27,7 +30,7 @@ describe("POST /checkout", () => {
       logging: false
     })
     
-    sequelize.addModels([ClientModel])
+    sequelize.addModels([ClientModel, ProductModel, OrderItemModel, OrderModel])
     migration = migrator(sequelize)
     await migration.up()
   })
