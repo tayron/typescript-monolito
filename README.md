@@ -64,6 +64,15 @@ curl http://localhost:3000/api/v1/clients
 
 ## Pedidos
 - **POST /checkout/** - Permite a realização do pedido de compra
+Exemplo de chamada:
+```sh 
+curl -X POST http://localhost:3000/api/v1/checkout \
+-H "Content-Type: application/json" \
+-d '{
+    "clientId": "01f3f8aa-2df1-4838-91d3-b2e6a8f882e6",
+    "products": [{"productId": "ee838f04-44c2-4e8a-8a01-12bc4c7141c9"}, {"productId": "c37af746-0319-426e-8be9-c5a3d1a2ae22"}]
+}'
+```
 
 ## Faturas
 - **GET /invoice/{id}** - Permite a fatura da compra

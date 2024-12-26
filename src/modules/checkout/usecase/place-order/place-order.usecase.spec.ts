@@ -323,7 +323,7 @@ describe("PlaceOrderUseCase unit test", () => {
       placeOrderUseCase["_catalogFacade"] = mockCatalogFacade;
 
       await expect(placeOrderUseCase["getProduct"]("0")).rejects.toThrow(
-        new Error("Product not found")
+        new Error("Product with id 0 not found")
       );
     });
 

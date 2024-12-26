@@ -53,6 +53,10 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
       input.products.map(async (product) => this.getProduct(product.productId))
     );
 
+    if (!products) {
+      throw new Error("Products not found")
+    }
+
     const myClient = new Client({
       id: new Id(client.id),
       name: client.name,
@@ -121,7 +125,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
     try {      
       const product = await this._catalogFacade.find({id: productId})
       if (!product) {
-        throw new Error("Product not found")
+        throw new Error(`Product with id ${productId} not found`)
       }  
       
       const productProps = {
