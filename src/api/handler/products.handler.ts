@@ -4,12 +4,13 @@ import ProductAdmFacadeFactory from '../../modules/product-adm/factory/facade.fa
 // POST - /products
 export const createProduct = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name, description, price, stock } = req.body;
+    const { name, description, price, salesPrice, stock } = req.body;
 
     const input = {
       name: name,
       description: description,
       purchasePrice: price,
+      salesPrice: salesPrice,      
       stock: stock,
     };
 
@@ -19,7 +20,7 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
     res.status(201).json({ message: 'Product created successfully' });
   } catch (error) {
     console.error("Error creating product:", error);
-    res.status(500).json({ error: 'Failed to create product' });
+    res.status(500).json({ error: `Error to create product: ${error}` });
   }
 };
 
@@ -37,7 +38,7 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
     res.status(200).json(products);
   } catch (error) {
     console.error("Error fetching product:", error);
-    res.status(500).json({ error: 'Failed to fetch product' });
+    res.status(500).json({ error: `Error to fetch product: ${error}` });
   }
 };
 

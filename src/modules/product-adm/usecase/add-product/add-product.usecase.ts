@@ -15,21 +15,23 @@ export default class AddProductUseCase {
       id: new Id(input.id),
       name: input.name,
       description: input.description,
+      salesPrice: input.salesPrice,
       purchasePrice: input.purchasePrice,
       stock: input.stock,
     };
 
     const product = new Product(props);
-    this._productRepository.add(product);
+    await this._productRepository.add(product);
 
     return {
       id: product.id.id,
       name: product.name,
       description: product.description,
+      salesPrice: product.salesPrice,
       purchasePrice: product.purchasePrice,
       stock: product.stock,
-      createdAt: product.createdAt,
-      updatedAt: product.updatedAt,
+      createdAt: product.createdAt || new Date,
+      updatedAt: product.updatedAt || new Date,
     };
   }
 }

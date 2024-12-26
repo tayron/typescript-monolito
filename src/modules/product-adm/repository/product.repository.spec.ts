@@ -31,11 +31,34 @@ describe("ProductRepository test", () => {
     await sequelize.close()
   });
 
-  it("should create a product", async () => {
+    it("should create a product without id", async () => {
+    const productProps = {
+      name: "Product 1",
+      description: "Product 1 description",
+      purchasePrice: 100,
+      salesPrice: 115,      
+      stock: 10,
+    };
+
+    const product = new Product(productProps);
+    const productRepository = new ProductRepository();
+    await productRepository.add(product);
+
+    const productDb = (await ProductModel.findAll());    
+    
+    expect(productProps.name).toEqual(productDb[0].dataValues.name);
+    expect(productProps.description).toEqual(productDb[0].dataValues.description);
+    expect(productProps.salesPrice).toEqual(productDb[0].dataValues.salesPrice);
+    expect(productProps.purchasePrice).toEqual(productDb[0].dataValues.purchasePrice);
+    expect(productProps.stock).toEqual(productDb[0].dataValues.stock);
+  });
+
+  it("should create a product with id", async () => {
     const productProps = {
       id: new Id("1"),
       name: "Product 1",
       description: "Product 1 description",
+      salesPrice: 115,
       purchasePrice: 100,
       stock: 10,
     };
@@ -61,6 +84,7 @@ describe("ProductRepository test", () => {
       id: "1",
       name: "Product 1",
       description: "Product 1 description",
+      salesPrice: 115,
       purchasePrice: 100,
       stock: 10,
       createdAt: new Date(),
@@ -83,6 +107,7 @@ describe("ProductRepository test", () => {
       id: "1",
       name: "Product 1",
       description: "Product 1 description",
+      salesPrice: 115,
       purchasePrice: 100,
       stock: 10,
       createdAt: new Date(),
@@ -93,6 +118,7 @@ describe("ProductRepository test", () => {
       id: "2",
       name: "Product 2",
       description: "Product 2 description",
+      salesPrice: 2015,
       purchasePrice: 200,
       stock: 20,
       createdAt: new Date(),

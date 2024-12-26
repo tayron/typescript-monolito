@@ -1,4 +1,6 @@
+import { getProducts } from "../../../api/handler/products.handler";
 import Id from "../../@shared/domain/value-object/id.value-object";
+import ProductModel from "../../product-adm/repository/product.model";
 import Client from "../domain/client.entity";
 import Order from "../domain/order.entity";
 import Product from "../domain/product.entity";
@@ -40,20 +42,34 @@ export default class OrderRepository implements PlaceOrderGateway {
       address: `${order.client.street, order.client.number, order.client.complement, order.client.city, order.client.state, order.client.zipcode}`
     })
 
-    const products = order.items.map((product) => {
-      return new Product({
-        id: new Id(product.id),
-        name: product.name,
-        description: product.description,
-        salesPrice: product.salesPrice,
-      })
-    })
+    const products = await this.getProdutsFromOrder(order)
 
     return new Order({
       id: new Id(order.id),
       client: client,
       products: products,
     });
+  }
+
+  async getProdutsFromOrder(order: OrderModel): Promise<Product[]> {
+    const products = await Promise.all(order.items.map(async (product:any) => {
+      const productDb = await ProductModel.findOne({
+        where: { id: product.id.id }
+      });
+
+      if (!productDb) {
+        throw new Error(`Product with id ${product.id.id} not found`);
+      }
+
+      return new Product({
+        id: new Id(productDb.id),
+        name: productDb.name,
+        description: productDb.description,
+        salesPrice: productDb.salesPrice,
+      });
+    }))
+
+    return products;
   }
   
 }

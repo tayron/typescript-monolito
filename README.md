@@ -15,6 +15,7 @@ curl -X POST http://localhost:3000/api/v1/products \
   "name": "Example Product",
   "description": "This is a description of the example product.",
   "price": 29.99,
+  "salesPrice": 35.00,
   "stock": 100
 }'
 ```
@@ -30,7 +31,7 @@ curl http://localhost:3000/api/v1/products
 
 Exemplo de chamada:
 ```sh 
-curl http://localhost:3000/api/v1/products/ee838f04-44c2-4e8a-8a01-12bc4c7141c9/stock
+curl http://localhost:3000/api/v1/products/b9267eb2-bcbf-4f7e-962b-815609b5214a/stock
 ```
 
 ---
@@ -69,8 +70,8 @@ Exemplo de chamada:
 curl -X POST http://localhost:3000/api/v1/checkout \
 -H "Content-Type: application/json" \
 -d '{
-    "clientId": "01f3f8aa-2df1-4838-91d3-b2e6a8f882e6",
-    "products": [{"productId": "ee838f04-44c2-4e8a-8a01-12bc4c7141c9"}, {"productId": "c37af746-0319-426e-8be9-c5a3d1a2ae22"}]
+    "clientId": "b3b0f23d-f1d6-4f90-bba6-d74c0334a30c",
+    "products": [{"productId": "b9267eb2-bcbf-4f7e-962b-815609b5214a"}]
 }'
 ```
 

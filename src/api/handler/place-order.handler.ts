@@ -16,6 +16,6 @@ export const createPlaceOrder = async (req: Request, res: Response): Promise<voi
     res.status(201).json({ message: 'Order created successfully' });
   } catch (error) {
     console.error("Error creating order:", error);
-    res.status(500).json({ error: 'Failed to create order' });
+    res.status(500).json({ error: `Error to create order: ${error}` });
   }
 };

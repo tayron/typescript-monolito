@@ -9,12 +9,13 @@ export default class ProductRepository implements ProductGateway {
       id: product.id.id,
       name: product.name,
       description: product.description,
+      salesPrice: product.salesPrice,
       purchasePrice: product.purchasePrice,
       stock: product.stock,
       createdAt: new Date(),
       updatedAt: new Date(),
-    });
-  }
+    });  
+  }  
 
   async find(id: string): Promise<Product> {
     const product = await ProductModel.findOne({
@@ -33,6 +34,7 @@ export default class ProductRepository implements ProductGateway {
       id: new Id(productData.id),
       name: productData.name,
       description: productData.description,
+      salesPrice: productData.salesPrice,
       purchasePrice: productData.purchasePrice,
       stock: productData.stock,
       createdAt: productData.createdAt,
@@ -48,6 +50,7 @@ export default class ProductRepository implements ProductGateway {
         id: new Id(product.id),
         name: product.name,
         description: product.description,
+        salesPrice: product.salesPrice,
         purchasePrice: product.purchasePrice,
         stock: product.stock,
         createdAt: product.createdAt,

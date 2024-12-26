@@ -9,6 +9,7 @@ import Product from "../domain/product.entity";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import ClientModel from "../../client-adm/repository/client.model";
 import ProductModel from "../../product-adm/repository/product.model";
+import OrderItemModel from "./order.item.model";
 
 describe("Order repository test", () => {
   let sequelize: Sequelize
@@ -21,7 +22,7 @@ describe("Order repository test", () => {
       logging: false,
     })
 
-    sequelize.addModels([ClientModel, ProductModel, OrderModel])
+    sequelize.addModels([ClientModel, ProductModel, OrderItemModel, OrderModel])
     migration = migrator(sequelize)
     await migration.up()
   })

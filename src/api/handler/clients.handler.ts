@@ -27,7 +27,7 @@ export const createClient = async (req: Request, res: Response): Promise<void> =
     res.status(201).json({ message: 'Client created successfully' });
   } catch (error) {
     console.error("Error creating client:", error);
-    res.status(500).json({ error: 'Failed to create client' });
+    res.status(500).json({ error: `Error to create client: ${error}` });
   }
 };
 
@@ -45,6 +45,6 @@ export const getClients = async (req: Request, res: Response): Promise<void> => 
     res.status(200).json(clients);
   } catch (error) {
     console.error("Error fetching clients:", error);
-    res.status(500).json({ error: 'Failed to fetch clients' });
+    res.status(500).json({ error: `Error to fetch clients: ${error}` });
   }
 };

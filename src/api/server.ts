@@ -12,6 +12,9 @@ const startServer = async () => {
     let migration: Umzug<any>;
     migration = migrator(sequelize)
     await migration.up()
+    sequelize.sync({ force: true }).then(() => {
+      console.log('Database synchronized');
+    });
 
     const app = express();
     

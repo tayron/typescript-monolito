@@ -6,6 +6,7 @@ const product = new Product({
   id: new Id("1"),
   name: "Product",
   description: "Product description",
+  salesPrice: 115,
   purchasePrice: 100,
   stock: 10,
 });

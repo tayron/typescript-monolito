@@ -16,6 +16,7 @@ describe("Add Product usecase unit test", () => {
     const input = {
       name: "Product 1",
       description: "Product 1 description",
+      salesPrice: 115,
       purchasePrice: 100,
       stock: 10,
     };
