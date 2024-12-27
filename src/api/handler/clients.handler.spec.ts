@@ -26,7 +26,7 @@ describe("POST /clients", () => {
     })
     
     sequelize.addModels([ClientModel])
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.up()
   })
 
@@ -34,7 +34,7 @@ describe("POST /clients", () => {
     if (!migration || !sequelize) {
       return 
     }
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.down()
     await sequelize.close()
   })  

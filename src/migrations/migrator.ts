@@ -2,9 +2,7 @@ import { SequelizeStorage, Umzug } from "umzug"
 import { join } from "path"
 import { Sequelize } from "sequelize"
 
-export const migrator = (
-  sequelize: Sequelize
-) => {
+export const migrator = (sequelize: Sequelize, showLogger: boolean) => {
 
     let migrationsPath = [
       "*/src/migrations/products",
@@ -14,6 +12,14 @@ export const migrator = (
       "*/src/migrations/invoices-items",      
       "*/src/migrations/transactions"
     ].join("/*.ts,") + "/*.ts";
+
+  const loggerMethod = console
+  if (!showLogger) {
+    loggerMethod.debug = () => {}
+    loggerMethod.info = () => {}
+    loggerMethod.warn = () => {}
+    loggerMethod.error = () => {}
+  }
 
   return new Umzug({
     migrations: {
@@ -27,6 +33,6 @@ export const migrator = (
     },
     context: sequelize,
     storage: new SequelizeStorage({ sequelize }),
-    logger: console
+    logger: loggerMethod
   })
 }

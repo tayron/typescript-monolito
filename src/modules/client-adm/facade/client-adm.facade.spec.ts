@@ -22,7 +22,7 @@ describe("Client Adm Facade test", () => {
     })
 
     sequelize.addModels([ClientModel])
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.up()
   })
 
@@ -30,7 +30,7 @@ describe("Client Adm Facade test", () => {
     if (!migration || !sequelize) {
       return 
     }    
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.down()
     await sequelize.close()
   })

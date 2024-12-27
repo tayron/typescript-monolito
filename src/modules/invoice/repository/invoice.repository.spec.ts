@@ -21,7 +21,7 @@ describe("TransactionRepository test", () => {
     });
 
     await sequelize.addModels([ItemModel, InvoiceModel]);
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.up()
   });
 
@@ -29,7 +29,7 @@ describe("TransactionRepository test", () => {
     if (!migration || !sequelize) {
       return 
     }    
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.down()
     await sequelize.close()
   });

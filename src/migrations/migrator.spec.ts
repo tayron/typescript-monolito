@@ -20,7 +20,7 @@ describe("Migrator test", () => {
     if (!migration || !sequelize) {
       return;
     }
-    migration = migrator(sequelize);
+    migration = migrator(sequelize, false);
     await migration.down();
     await sequelize.close();
   });

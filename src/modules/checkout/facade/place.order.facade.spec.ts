@@ -23,7 +23,7 @@ describe("Checkout Facede test", () => {
     })
 
     sequelize.addModels([ProductStoreModel, ProductModel, TransactionModel, OrderModel, ClientModel])
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.up()
     //await sequelize.sync({ force: true });
 
@@ -33,7 +33,7 @@ describe("Checkout Facede test", () => {
     if (!migration || !sequelize) {
       return 
     }    
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.down()    
     await sequelize.drop()
     await sequelize.close() 

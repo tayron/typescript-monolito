@@ -10,7 +10,7 @@ const PORT = 3000;
 const startServer = async () => {
   try {
     let migration: Umzug<any>;
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.up()
     sequelize.sync({ force: true }).then(() => {
       console.log('Database synchronized');

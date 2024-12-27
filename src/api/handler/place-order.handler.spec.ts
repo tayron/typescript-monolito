@@ -31,7 +31,7 @@ describe("POST /checkout", () => {
     })
     
     sequelize.addModels([ClientModel, ProductModel, OrderItemModel, OrderModel])
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.up()
   })
 
@@ -39,7 +39,7 @@ describe("POST /checkout", () => {
     if (!migration || !sequelize) {
       return 
     }
-    migration = migrator(sequelize)
+    migration = migrator(sequelize, false)
     await migration.down()
     await sequelize.close()
   })  
