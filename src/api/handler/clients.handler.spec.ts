@@ -55,6 +55,16 @@ describe("POST /clients", () => {
     })
 
     expect(output.status).toBe(201)
+    expect(output.body.id).toBeDefined()
+    expect(output.body.name).toBe("Lucian")
+    expect(output.body.email).toBe("lucian@xpto.com")
+    expect(output.body.document).toBe("1234-5678")
+    expect(output.body.street).toBe("Rua 123")
+    expect(output.body.number).toBe("99")
+    expect(output.body.complement).toBe("Casa Verde")
+    expect(output.body.city).toBe("Criciúma")
+    expect(output.body.state).toBe("SC")
+    expect(output.body.zipCode).toBe("88888-888")    
   })
 
   it("should check if existe created clients", async () => {

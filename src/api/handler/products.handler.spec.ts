@@ -48,9 +48,14 @@ describe("POST /products", () => {
         "description": "This is a description of the example product.",
         "price": 29.99,
         "stock": 100
-    })
+    })    
 
     expect(output.status).toBe(201)
+    expect(output.body.id).toBeDefined()
+    expect(output.body.name).toBe("Example Product")
+    expect(output.body.description).toBe("This is a description of the example product.")
+    expect(output.body.purchasePrice).toBe(29.99)
+    expect(output.body.stock).toBe(100)
   })
 
   it("should get all products", async () => {

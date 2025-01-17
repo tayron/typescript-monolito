@@ -27,6 +27,14 @@ export default class Product extends BaseEntity implements AggregateRoot {
     this._purchasePrice = props.purchasePrice;
     this._salesPrice = props.salesPrice;
     this._stock = props.stock;
+
+    if (!this._salesPrice || this._salesPrice == 0) {
+      this._salesPrice = this.calculateSalesPrice(props);
+    }    
+  }
+
+  calculateSalesPrice(props: ProductProps): number {
+    return props.purchasePrice * 1.5;
   }
 
   get name(): string {

@@ -15,9 +15,9 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
     };
 
     const productAdmFacade = ProductAdmFacadeFactory.create();
-    await productAdmFacade.addProduct(input);
+    const productCreated = await productAdmFacade.addProduct(input);
 
-    res.status(201).json({ message: 'Product created successfully' });
+    res.status(201).json(productCreated);
   } catch (error) {
     console.error("Error creating product:", error);
     res.status(500).json({ error: `Error to create product: ${error}` });

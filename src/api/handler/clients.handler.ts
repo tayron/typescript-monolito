@@ -22,9 +22,9 @@ export const createClient = async (req: Request, res: Response): Promise<void> =
     };
 
     const clientAdmFacade = ClientAdmFacadeFactory.create();
-    await clientAdmFacade.add(input);
+    const clientCreated = await clientAdmFacade.add(input);
 
-    res.status(201).json({ message: 'Client created successfully' });
+    res.status(201).json(clientCreated);
   } catch (error) {
     console.error("Error creating client:", error);
     res.status(500).json({ error: `Error to create client: ${error}` });
