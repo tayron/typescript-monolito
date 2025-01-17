@@ -5,6 +5,7 @@ import { migrator } from "./migrator";
 describe("Migrator test", () => {
   let sequelize: Sequelize;
   let migration: Umzug<any>;
+  const showLog = false
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -13,7 +14,7 @@ describe("Migrator test", () => {
       logging: false, // Deixe `true` se precisar de logs
     });
 
-    await migrator(sequelize).up();
+    await migrator(sequelize, showLog).up();
   });
 
   afterEach(async () => {

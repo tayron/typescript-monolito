@@ -88,6 +88,8 @@ describe("POST /checkout", () => {
         "products": [{"productId": productsDb[0].id}]
     })
 
+    console.log(output.body)
+
     expect(output.status).toBe(201)
     expect(output.body).toBeDefined()
   }) 

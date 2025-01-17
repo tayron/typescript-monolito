@@ -9,6 +9,7 @@ import Id from "../../@shared/domain/value-object/id.value-object";
 import ProductStoreModel from "../../store-catalog/repository/product.model";
 import ProductModel from "../../product-adm/repository/product.model";
 import TransactionModel from "../../payment/repository/transaction.model";
+import OrderItemModel from "../repository/order.item.model";
 
 describe("Checkout Facede test", () => {
 
@@ -22,7 +23,7 @@ describe("Checkout Facede test", () => {
       logging: false,
     })
 
-    sequelize.addModels([ProductStoreModel, ProductModel, TransactionModel, OrderModel, ClientModel])
+    sequelize.addModels([ProductStoreModel, ProductModel, TransactionModel, OrderItemModel, OrderModel, ClientModel])
     migration = migrator(sequelize, false)
     await migration.up()
     //await sequelize.sync({ force: true });

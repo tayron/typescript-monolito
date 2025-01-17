@@ -30,13 +30,6 @@ describe("ProductAdmFacade test", () => {
   });
 
   it("should create a product", async () => {
-    // const productRepository = new ProductRepository();
-    // const addProductUseCase = new AddProductUseCase(productRepository);
-    // const productFacade = new ProductAdmFacade({
-    //   addUseCase: addProductUseCase,
-    //   stockUseCase: undefined,
-    // });
-
     const productFacade = ProductAdmFacadeFactory.create();
 
     const input = {
@@ -44,6 +37,7 @@ describe("ProductAdmFacade test", () => {
       name: "Product 1",
       description: "Product 1 description",
       purchasePrice: 10,
+      salesPrice: 15,
       stock: 10,
     };
 
@@ -65,6 +59,7 @@ describe("ProductAdmFacade test", () => {
       name: "Product 1",
       description: "Product 1 description",
       purchasePrice: 10,
+      salesPrice: 15,
       stock: 10,
     };
     await productFacade.addProduct(input);

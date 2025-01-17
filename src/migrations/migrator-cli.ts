@@ -8,4 +8,6 @@ const sequelize = new Sequelize({
   logging: true
 })
 
-migrator(sequelize).runAsCLI()
+const showLog = false
+
+migrator(sequelize, showLog).runAsCLI()
