@@ -74,6 +74,13 @@ curl -X POST http://localhost:3000/api/v1/checkout \
     "products": [{"productId": "b9267eb2-bcbf-4f7e-962b-815609b5214a"}]
 }'
 ```
+OBS.: Está dando este erro, já mandei no forum mas não tive resposta:
+  ```sh
+    {
+      error: 'Error to create order: Error: Model not initialized: Member "findOne" cannot be called. "ProductModel" needs to be added to a Sequelize instance.'
+    }
+  ```
 
 ## Faturas
 - **GET /invoice/{id}** - Permite a fatura da compra
+  
