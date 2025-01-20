@@ -34,7 +34,7 @@ curl http://localhost:3000/api/v1/products
 
 Exemplo de chamada:
 ```sh 
-curl http://localhost:3000/api/v1/products/b9267eb2-bcbf-4f7e-962b-815609b5214a/stock
+curl http://localhost:3000/api/v1/products/9c674218-6221-4b05-ab33-3f21e43beeed/stock
 ```
 
 ---
@@ -73,17 +73,31 @@ Exemplo de chamada:
 curl -X POST http://localhost:3000/api/v1/checkout \
 -H "Content-Type: application/json" \
 -d '{
-    "clientId": "b3b0f23d-f1d6-4f90-bba6-d74c0334a30c",
-    "products": [{"productId": "b9267eb2-bcbf-4f7e-962b-815609b5214a"}]
+    "clientId": "2bb4a1ec-8e5b-4292-8f58-83ecee6a97e4",
+    "products": [{"productId": "9c674218-6221-4b05-ab33-3f21e43beeed"}]
 }'
 ```
-OBS.: Está dando este erro, já mandei no forum mas não tive resposta:
-  ```sh
-    {
-      error: 'Error to create order: Error: Model not initialized: Member "findOne" cannot be called. "ProductModel" needs to be added to a Sequelize instance.'
-    }
-  ```
-
 ## Faturas
-- **GET /invoice/{id}** - Permite a fatura da compra
-  
+- **GET /invoice/{id}** - Permite a pagamento da compra
+
+  Exemplo de chamada:
+```sh 
+curl -X POST http://localhost:3000/api/v1/invoice \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "Lucian",
+    "document": "1234-5678",      
+    "street": "Rua 123",
+    "number": "99",
+    "complement": "Casa Verde",
+    "city": "Criciúma",
+    "state": "SC",
+    "zipCode": "88888-888",
+    "items": [{
+        "id": "9c674218-6221-4b05-ab33-3f21e43beeed",
+        "name": "Example Product",
+        "price": 44.985
+    }]
+}'
+
+

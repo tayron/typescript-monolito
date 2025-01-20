@@ -10,9 +10,11 @@ import ProductModel from "../../modules/@shared/model/product.model";
 import OrderModel from "../../modules/checkout/repository/order.model";
 import OrderItemModel from "../../modules/checkout/repository/order.item.model";
 import TransactionModel from "../../modules/payment/repository/transaction.model";
+import InvoiceModel from "../../modules/invoice/repository/invoice.model";
+import InvoiceItemModel from "../../modules/invoice/repository/invoice.item.model";
 
 
-describe("POST /checkout", () => {
+describe("POST /invoice", () => {
 
   const app: Express = express()
   app.use(bodyParser.json());
@@ -28,7 +30,7 @@ describe("POST /checkout", () => {
       logging: false
     })
     
-    sequelize.addModels([ClientModel, ProductModel, OrderItemModel, OrderModel, TransactionModel])
+    sequelize.addModels([ClientModel, ProductModel, OrderItemModel, OrderModel, TransactionModel, InvoiceItemModel, InvoiceModel])
     migration = migrator(sequelize, false)
     await migration.up()
   })
@@ -42,7 +44,7 @@ describe("POST /checkout", () => {
     await sequelize.close()
   })  
 
-  it("should create order with successfully", async () => {
+  it("should create invoice with successfully", async () => {
     const outputClient = await request(app)
       .post("/api/v1/clients")
       .send({
@@ -82,9 +84,29 @@ describe("POST /checkout", () => {
         "products": [{"productId": productID}]
     })
 
-    console.log(outputCheckout.body)
-
     expect(outputCheckout.status).toBe(201)
     expect(outputCheckout.body).toBeDefined()
+
+    const outputInvoice = await request(app)
+      .post("/api/v1/invoice")
+      .send({
+        "name": outputClient.body.name,
+        "document": outputClient.body.document,
+        "street": outputClient.body.street,
+        "number": outputClient.body.number,
+        "complement": outputClient.body.complement,
+        "city": outputClient.body.city,
+        "state": outputClient.body.state,
+        "zipCode": outputClient.body.zipCode,
+        "items": [{
+            id: outputProduct.body.id,
+            name: outputProduct.body.name,
+            price: outputProduct.body.salesPrice,
+          }],
+    })    
+
+    console.log(outputInvoice.body)
+    expect(outputInvoice.status).toBe(201)
+    expect(outputInvoice.body.id).toBeDefined()  
   }) 
 })
