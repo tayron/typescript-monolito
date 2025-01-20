@@ -11,9 +11,9 @@ export const createPlaceOrder = async (req: Request, res: Response): Promise<voi
     };    
 
     const placeOrder = PlaceOrderFactory.create();
-    await placeOrder.execute(input)
+    const output = await placeOrder.execute(input)
 
-    res.status(201).json({ message: 'Order created successfully' });
+    res.status(201).json(output);
   } catch (error) {
     console.error("Error creating order:", error);
     res.status(500).json({ error: `Error to create order: ${error}` });

@@ -1,9 +1,12 @@
 # Projeto monolito
 
 
+Para startar o serviço basta executar o comando:
+```sh
+npm run start
+```
+
 # Serviços disponíveis na API
-
-
 ## Produtos
 - **POST /products** - Permite o cadastro de produtos
 
