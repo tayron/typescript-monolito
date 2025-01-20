@@ -1,6 +1,6 @@
 import { getProducts } from "../../../api/handler/products.handler";
 import Id from "../../@shared/domain/value-object/id.value-object";
-import ProductModel from "../../product-adm/repository/product.model";
+import ProductModel from "../../@shared/model/product.model";
 import Client from "../domain/client.entity";
 import Order from "../domain/order.entity";
 import Product from "../domain/product.entity";

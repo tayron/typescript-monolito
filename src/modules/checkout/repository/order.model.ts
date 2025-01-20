@@ -1,4 +1,4 @@
-import { BelongsTo, Column, ForeignKey, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
 import ClientModel from "../../client-adm/repository/client.model";
 import OrderItemModel from "./order.item.model";
 
@@ -12,14 +12,14 @@ export default class OrderModel extends Model {
   @Column({ allowNull: false })
   declare id: string;
 
-  @ForeignKey(() => ClientModel)
+  @ForeignKey(() => require('../../client-adm/repository/client.model').default)
   @Column({ allowNull: false })
   declare clientId: string;
 
-  @BelongsTo(() => ClientModel, { foreignKey: "id" })
+  @BelongsTo(() => require('../../client-adm/repository/client.model').default, { foreignKey: "id" })
   declare client: ClientModel;
 
-  @HasMany(() => OrderItemModel)  
+  @HasMany(() => require('./order.item.model').default)  
   declare items: OrderItemModel[]
 
   @Column({ allowNull: false })

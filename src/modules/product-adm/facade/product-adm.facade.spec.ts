@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import ProductAdmFacadeFactory from "../factory/facade.factory";
-import ProductModel from "../repository/product.model";
+import ProductModel from "../../@shared/model/product.model";
 import { Umzug } from "umzug";
 import { migrator } from "../../../migrations/migrator";
 

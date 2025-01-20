@@ -4,14 +4,12 @@ import { Sequelize } from 'sequelize-typescript';
 import { Umzug } from 'umzug';
 import bodyParser from 'body-parser';
 import { migrator } from '../../migrations/migrator';
-import ClientAdmFacadeFactory from '../../modules/client-adm/factory/client-adm.facade.factory';
 import router from '../router';
 import ClientModel from "../../modules/client-adm/repository/client.model";
-import Address from "../../modules/@shared/domain/value-object/address";
-import ProductAdmFacadeFactory from "../../modules/product-adm/factory/facade.factory";
-import ProductModel from "../../modules/product-adm/repository/product.model";
+import ProductModel from "../../modules/@shared/model/product.model";
 import OrderModel from "../../modules/checkout/repository/order.model";
 import OrderItemModel from "../../modules/checkout/repository/order.item.model";
+import TransactionModel from "../../modules/payment/repository/transaction.model";
 
 
 describe("POST /checkout", () => {
@@ -30,7 +28,7 @@ describe("POST /checkout", () => {
       logging: false
     })
     
-    sequelize.addModels([ClientModel, ProductModel, OrderItemModel, OrderModel])
+    sequelize.addModels([ClientModel, ProductModel, OrderItemModel, OrderModel, TransactionModel])
     migration = migrator(sequelize, false)
     await migration.up()
   })
@@ -83,8 +81,6 @@ describe("POST /checkout", () => {
         "clientId": clientID,
         "products": [{"productId": productID}]
     })
-
-    console.log(outputCheckout.body)
 
     expect(outputCheckout.status).toBe(201)
     expect(outputCheckout.body).toBeDefined()

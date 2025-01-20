@@ -6,8 +6,7 @@ import ClientModel from "../../client-adm/repository/client.model";
 import PlaceOrderFactory from "../factory/place.order.factory";
 import Client from "../domain/client.entity";
 import Id from "../../@shared/domain/value-object/id.value-object";
-import ProductStoreModel from "../../store-catalog/repository/product.model";
-import ProductModel from "../../product-adm/repository/product.model";
+import ProductModel from "../../@shared/model/product.model";
 import TransactionModel from "../../payment/repository/transaction.model";
 import OrderItemModel from "../repository/order.item.model";
 
@@ -23,7 +22,7 @@ describe("Checkout Facede test", () => {
       logging: false,
     })
 
-    sequelize.addModels([ProductStoreModel, ProductModel, TransactionModel, OrderItemModel, OrderModel, ClientModel])
+    sequelize.addModels([ProductModel, TransactionModel, OrderItemModel, OrderModel, ClientModel])
     migration = migrator(sequelize, false)
     await migration.up()
     //await sequelize.sync({ force: true });
@@ -75,9 +74,9 @@ describe("Checkout Facede test", () => {
         updatedAt: new Date(),
     }
     
-    await ProductStoreModel.create(product)    
+    await ProductModel.create(product)    
     
-    const productDb = (await ProductStoreModel.findOne({
+    const productDb = (await ProductModel.findOne({
       where: { id: "1" },
     })).dataValues
 

@@ -8,7 +8,7 @@ import Client from "../domain/client.entity";
 import Product from "../domain/product.entity";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import ClientModel from "../../client-adm/repository/client.model";
-import ProductModel from "../../product-adm/repository/product.model";
+import ProductModel from "../../@shared/model/product.model";
 import OrderItemModel from "./order.item.model";
 
 describe("Order repository test", () => {
@@ -22,7 +22,7 @@ describe("Order repository test", () => {
       logging: false,
     })
 
-    sequelize.addModels([ClientModel, ProductModel, OrderItemModel, OrderModel])
+    sequelize.addModels([ClientModel, OrderModel, ProductModel, OrderItemModel])
     migration = migrator(sequelize, false)
     await migration.up()
   })
@@ -88,7 +88,6 @@ describe("Order repository test", () => {
 
     const orderDb = (await OrderModel.findOne({ where: { id: "1" } })).dataValues    
     expect(orderDb).toBeDefined()
-    expect(orderDb.id).toEqual(order.id.id)
-    
+    expect(orderDb.id).toEqual(order.id.id)    
   })
 })

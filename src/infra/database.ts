@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import ProductModel from '../modules/product-adm/repository/product.model';
+import ProductModel from '../modules/@shared/model/product.model';
 import ClientModel from '../modules/client-adm/repository/client.model';
 import InvoiceModel from '../modules/invoice/repository/invoice.model';
 import InvoiceItemModel from '../modules/invoice/repository/invoice.item.model';
@@ -22,7 +22,5 @@ sequelize.addModels([
   InvoiceItemModel,
   TransactionModel,
 ])
-
-console.info(sequelize.models)
 
 export default sequelize;

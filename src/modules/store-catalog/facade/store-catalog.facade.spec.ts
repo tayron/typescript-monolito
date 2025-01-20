@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize-typescript";
 import StoreCatalogFacadeFactory from "../factory/facade.factory";
-import ProductModel from "../repository/product.model";
 import { migrator } from "../../../migrations/migrator";
 import { Umzug } from "umzug";
+import ProductModel from "../../@shared/model/product.model";
 
 describe("StoreCatalogFacade test", () => {
   let sequelize: Sequelize;

@@ -1,6 +1,4 @@
 import { Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
-import OrderModel from "./order.model";
-import ProductModel from "../../store-catalog/repository/product.model";
 
 @Table({
   tableName: "orders_items",
@@ -17,10 +15,10 @@ export default class OrderItemModel extends Model {
   @Column({ allowNull: false })
   declare salesPrice: number
 
-  @ForeignKey(() => require('../../product-adm/repository/product.model').default) // Importação dinâmica  
+  @ForeignKey(() => require('../../@shared/model/product.model').default) // Importação dinâmica  
   declare productId: string;
 
-  @ForeignKey(() => OrderModel)  
+  @ForeignKey(() => require('./order.model').default)  
   declare orderId: string;
 
   @Column({ allowNull: false })
